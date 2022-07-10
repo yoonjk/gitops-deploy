@@ -2,7 +2,7 @@ pipeline {
     environment {
         DOMAIN='apps.ocp4.example.com'
   
-        PRJ="hello-main-${env.BUILD_NUMBER}"
+        PRJ="gitops-deploy}"
         APP='nodeapp'
     }
     agent {
@@ -19,7 +19,7 @@ pipeline {
                     echo "branch-name:${env.BRANCH_NAME}"
                     openshift.withCluster() {
                         echo("Create project ${env.PRJ}") 
-                        openshift.newProject("${env.PRJ}")
+                        // openshift.newProject("${env.PRJ}")
                         openshift.withProject("${env.PRJ}") {
                             echo('Grant to developer read access to the project')
                             openshift.raw('policy', 'add-role-to-user', 'view', 'developer')
