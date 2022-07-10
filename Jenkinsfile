@@ -1,7 +1,8 @@
 pipeline {
     environment {
         DOMAIN='apps.ocp4.example.com'
-        PRJ="hello-${env.BRANCH_NAME}-${env.BUILD_NUMBER}"
+  
+        PRJ="hello-main-${env.BUILD_NUMBER}"
         APP='nodeapp'
     }
     agent {
@@ -15,6 +16,7 @@ pipeline {
                 script {
                     // Uncomment to get lots of debugging output
                     //openshift.logLevel(1)
+                    echo "branch-name:${env.BRANCH_NAME}"
                     openshift.withCluster() {
                         echo("Create project ${env.PRJ}") 
                         openshift.newProject("${env.PRJ}")
